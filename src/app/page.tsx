@@ -8,15 +8,28 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-black">
+    <main className="relative w-screen h-screen overflow-hidden bg-white">
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <Preloader onLoadingComplete={() => setIsLoading(false)} />
+          <motion.div
+            key="preloader"
+            className="absolute inset-0 z-50 bg-white"
+            exit={{
+              y: '-100%',
+              transition: {
+                duration: 0.8,
+                ease: [0.76, 0, 0.24, 1]
+              }
+            }}
+          >
+            <Preloader onLoadingComplete={() => setIsLoading(false)} />
+          </motion.div>
         ) : (
           <motion.div 
-            className="w-full h-full flex justify-center items-center p-4 bg-white"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
+            key="content"
+            className="w-full h-full flex justify-center items-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{
               duration: 0.8,
               ease: [0.76, 0, 0.24, 1]

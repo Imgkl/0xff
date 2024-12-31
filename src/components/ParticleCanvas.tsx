@@ -48,8 +48,8 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
       if (fontSizeRef.current === 0) {
         const baseSize = Math.min(canvas.width, canvas.height);
         fontSizeRef.current = Math.min(
-          baseSize * (canvas.width < 640 ? 0.08 : 0.15),
-          200
+          baseSize * (canvas.width < 640 ? 0.2: 1.5),
+          300
         );
       }
     };

@@ -7,7 +7,7 @@ const panchang = localFont({
   src: [
     {
       path: './fonts/Panchang.ttf',
-      weight: '200',
+      weight: '300',
       style: 'normal',
     }
   ],

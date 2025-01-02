@@ -53,17 +53,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "0xff.design",
-  description: "Design Explorations",
+  description: "⌘ + C and ⌘ + V your next component.",
   openGraph: {
     title: "0xff.design",
-    description: "Design Explorations",
+    description: "⌘ + C and ⌘ + V your next component.",
     url: "https://0xff.design",
     siteName: "0xff.design",
     locale: "en-US",
     type: "website",
     images: [
       {
-        url: "https://i.ibb.co/jhRQqQ4/0xff.jpg",
+        url: "https://i.ibb.co/J2VjQ1W/0xff.png",
         width: 1263,
         height: 675,
         alt: "0xff.design",
@@ -74,8 +74,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     creator: "@GokulaDotDev",
     title: "0xff.design",
-    description: "Design Explorations",
-    images: "https://i.ibb.co/jhRQqQ4/0xff.jpg",
+    description: "⌘ + C and ⌘ + V your next component.",
+    images: "https://i.ibb.co/J2VjQ1W/0xff.png",
   },
   robots: {
     index: true,

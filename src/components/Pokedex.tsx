@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Introduction } from './pages/introduction';
 
@@ -56,40 +56,49 @@ const Pokedex = () => {
               0xFF
             </h2>
             <nav className="relative">
-              <motion.div
-                className="absolute -inset-3 bg-textPrimary rounded-xl"
-                animate={{
-                  top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
-                  height: "3rem",
-                  width: "100%"
-                }}
-                style={{
-                  zIndex: 1
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 600,
-                  damping: 20,
-                }}
-              />
-              <div className="flex flex-col gap-2 relative" style={{ zIndex: 2 }}>
-                {menuItems.map((item) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => setSelectedItem(item)}
-                    className={`w-full h-12 flex items-center ${item.id === selectedItem.id ? "pl-1" : "pl-1"} rounded-3xl ${
-                      selectedItem.id === item.id
-                        ? "text-white"
-                        : "text-textPrimary hover:text-white/80"
-                    }`}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <span className="font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
-                      {item.title}
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
+              <LayoutGroup>
+                <motion.div
+                  layout
+                  className="absolute -inset-3 bg-textPrimary rounded-xl"
+                  initial={{
+                    top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
+                    height: "3rem",
+                    width: "100%"
+                  }}
+                  animate={{
+                    top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
+                    height: "3rem",
+                    width: "100%"
+                  }}
+                  style={{
+                    zIndex: 1
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 600,
+                    damping: 20,
+                  }}
+                />
+                <div className="flex flex-col gap-2 relative" style={{ zIndex: 2 }}>
+                  {menuItems.map((item) => (
+                    <motion.button
+                      layout
+                      key={item.id}
+                      onClick={() => setSelectedItem(item)}
+                      className={`w-full h-12 flex items-center ${item.id === selectedItem.id ? "pl-1" : "pl-1"} rounded-3xl ${
+                        selectedItem.id === item.id
+                          ? "text-white"
+                          : "text-textPrimary hover:text-white/80"
+                      }`}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span className="font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
+                        {item.title}
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
+              </LayoutGroup>
             </nav>
           </div>
         </div>

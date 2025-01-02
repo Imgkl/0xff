@@ -49,7 +49,6 @@ const GridBackground = () => {
       });
     }
 
-    let offset = 0;
     const animate = () => {
       // Clear canvas with white background
       ctx.fillStyle = '#fcfcfc';

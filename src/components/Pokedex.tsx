@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
     title: "Questions?",
     component: (
       <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
-        I'm still cooking.
+        I&apos;m still cooking.
       </div>
     ),
   },

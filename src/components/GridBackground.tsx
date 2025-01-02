@@ -89,16 +89,9 @@ const GridBackground = () => {
           
           // Calculate dot displacement
           const angle = Math.atan2(dotY - mouseY, dotX - mouseX);
-          const displacement = mouseInfluence * 8; // Reduced displacement
+          const displacement = mouseInfluence * 8;
           const displacedX = dotX + Math.cos(angle) * displacement;
           const displacedY = dotY + Math.sin(angle) * displacement;
-          
-          const pulseEffect = (
-            Math.sin(time + distanceFromCenter * 0.01) * 0.1 + 
-            Math.sin(time * 0.5) * 0.05 + 
-            mouseInfluence * 0.8 + 
-            0.8
-          );
           
           const currentDotSize = dotSize * (1 + mouseInfluence * 1);
           const baseOpacity = 0.15 + 

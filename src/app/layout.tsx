@@ -7,13 +7,24 @@ import "./globals.css";
 const minimalMono = localFont({
   src: [
     {
+      path: "./fonts/Minimal-Mono-Black.otf",
+      weight: "900",
+      style: "normal",
+    },
+    {
       path: "./fonts/Minimal-Mono-Bold.otf",
       weight: "700",
-      style: "bold",
+      style: "normal",
     },
+    {
+      path: "./fonts/Minimal-Mono-Regular.otf",
+      weight: "400",
+      style: "normal",
+    }
   ],
   display: "swap",
   variable: "--font-minimal-mono",
+  preload: true,
 });
 
 const panchang = localFont({

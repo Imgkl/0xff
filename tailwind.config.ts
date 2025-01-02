@@ -16,8 +16,8 @@ export default {
         "4k": "2560px",
       },
       colors: {
-        background: "var(--background)",
         foreground: "var(--foreground)",
+        background: "#fcfcfc"
       },
     },
   },

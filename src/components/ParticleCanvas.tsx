@@ -84,7 +84,10 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
           const letterSpacing = -fontSize * 0.1; // Tighter spacing
           const chars = text.split('');
           const totalWidth = ctx.measureText(text).width + (letterSpacing * (chars.length - 1));
-          const startX = canvas.width / 2 - totalWidth / 2;
+          // Center in the remaining space after left panel
+          const leftPanelWidth = canvas.width * 0.2;
+          const remainingWidth = canvas.width - leftPanelWidth;
+          const startX = leftPanelWidth + (remainingWidth / 2) - (totalWidth / 2) - (leftPanelWidth * 0.25); // Move left by quarter of panel width
           
           let currentX = startX;
           chars.forEach((char) => {
@@ -276,7 +279,10 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
               const letterSpacing = -fontSizeRef.current * 0.1;
               const chars = '0xff'.split('');
               const totalWidth = ctx.measureText('0xff').width + (letterSpacing * (chars.length - 1));
-              const startX = canvas.width / 2 - totalWidth / 2;
+              // Center in the remaining space after left panel
+              const leftPanelWidth = canvas.width * 0.2;
+              const remainingWidth = canvas.width - leftPanelWidth;
+              const startX = leftPanelWidth + (remainingWidth / 2) - (totalWidth / 2) - (leftPanelWidth * 0.25); // Move left by quarter of panel width
               
               let currentX = startX;
               chars.forEach((char) => {
@@ -315,7 +321,10 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
                 const letterSpacing = -fontSizeRef.current * 0.1;
                 const chars = '0xff'.split('');
                 const totalWidth = ctx.measureText('0xff').width + (letterSpacing * (chars.length - 1));
-                const startX = canvas.width / 2 - totalWidth / 2;
+                // Center in the remaining space after left panel
+                const leftPanelWidth = canvas.width * 0.2;
+                const remainingWidth = canvas.width - leftPanelWidth;
+                const startX = leftPanelWidth + (remainingWidth / 2) - (totalWidth / 2) - (leftPanelWidth * 0.25); // Move left by quarter of panel width
                 
                 let currentX = startX;
                 chars.forEach((char) => {

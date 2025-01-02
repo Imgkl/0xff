@@ -67,13 +67,25 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
       ctx.imageSmoothingQuality = 'high';
       
       const text = '0xff';
-      ctx.font = `200 ${fontSize}px Panchang`;
+      ctx.font = `200 ${fontSize}px "Minimal Mono"`;
       ctx.fillStyle = 'black';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+      
+      // Draw text with reduced spacing
+      const letterSpacing = -fontSize * 0.1; // Tighter spacing
+      const chars = text.split('');
+      const totalWidth = ctx.measureText(text).width + (letterSpacing * (chars.length - 1));
+      const startX = canvas.width / 2 - totalWidth / 2;
+      
+      let currentX = startX;
+      chars.forEach((char) => {
+        const width = ctx.measureText(char).width;
+        ctx.fillText(char, currentX + width/2, canvas.height / 2);
+        currentX += width + letterSpacing;
+      });
       
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const points: { x: number; y: number }[] = [];
@@ -248,13 +260,24 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
           // Smoother easing curve (cubic)
           const easedFade = 1 - Math.pow(1 - fadeProgress, 3);
 
-          // Draw the final text with eased opacity
+          // Draw the final text with reduced spacing
           ctx.globalAlpha = easedFade;
-          ctx.font = `200 ${fontSizeRef.current}px Panchang`;
+          ctx.font = `200 ${fontSizeRef.current}px "Minimal Mono"`;
           ctx.fillStyle = 'black';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('0xff', canvas.width / 2, canvas.height / 2);
+          
+          const letterSpacing = -fontSizeRef.current * 0.1;
+          const chars = '0xff'.split('');
+          const totalWidth = ctx.measureText('0xff').width + (letterSpacing * (chars.length - 1));
+          const startX = canvas.width / 2 - totalWidth / 2;
+          
+          let currentX = startX;
+          chars.forEach((char) => {
+            const width = ctx.measureText(char).width;
+            ctx.fillText(char, currentX + width/2, canvas.height / 2);
+            currentX += width + letterSpacing;
+          });
           ctx.globalAlpha = 1;
 
           // Draw particles with eased fade out
@@ -277,12 +300,23 @@ const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ isExploding, onComplete
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Render text immediately to prevent flash
-            ctx.font = `200 ${fontSizeRef.current}px Panchang`;
+            // Render text immediately with reduced spacing
+            ctx.font = `200 ${fontSizeRef.current}px "Minimal Mono"`;
             ctx.fillStyle = 'black';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('0xff', canvas.width / 2, canvas.height / 2);
+            
+            const letterSpacing = -fontSizeRef.current * 0.1;
+            const chars = '0xff'.split('');
+            const totalWidth = ctx.measureText('0xff').width + (letterSpacing * (chars.length - 1));
+            const startX = canvas.width / 2 - totalWidth / 2;
+            
+            let currentX = startX;
+            chars.forEach((char) => {
+              const width = ctx.measureText(char).width;
+              ctx.fillText(char, currentX + width/2, canvas.height / 2);
+              currentX += width + letterSpacing;
+            });
             
             // Add delay before completing
             setTimeout(() => {

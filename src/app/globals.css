@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --minimal-mono: 'Minimal Mono', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +18,65 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: -0.05em;
+}
+
+.MinimalMono {
+  font-family: "Minimal Mono", monospace;
+  letter-spacing: -0.05em;
+}
+
+.Panchang {
+  font-family: "Panchang", sans-serif;
+}
+
+.InstrumentSerif {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+}
+
+.cmd-key {
+  background-color: #f3f3f3;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 100;
+}
+
+.reveal-text {
+  position: relative;
+  cursor: default;
+}
+
+.reveal-text::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: var(--x, 50%);
+  width: 0;
+  height: 1px;
+  background: #000;
+  transition: width 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+  transform: translateX(-50%);
+}
+
+.reveal-text:hover::before {
+  width: 100%;
+}
+
+.reveal-text span {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.magnetic-text {
+  transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.minimal-hover {
+  opacity: 0.5;
+  transition: opacity 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.minimal-hover:hover {
+  opacity: 1;
 }

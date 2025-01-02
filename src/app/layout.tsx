@@ -1,18 +1,38 @@
 import type { Metadata } from "next";
+import { Instrument_Serif } from 'next/font/google';
 import localFont from "next/font/local";
 
 import "./globals.css";
 
+const minimalMono = localFont({
+  src: [
+    {
+      path: "./fonts/Minimal-Mono-Bold.otf",
+      weight: "700",
+      style: "bold",
+    },
+  ],
+  display: "swap",
+  variable: "--font-minimal-mono",
+});
+
 const panchang = localFont({
   src: [
     {
-      path: './fonts/Panchang.ttf',
-      weight: '300',
-      style: 'normal',
-    }
+      path: "./fonts/Panchang.ttf",
+      weight: "400",
+      style: "regular",
+    },
   ],
+  display: "swap",
+  variable: "--font-panchang",
+});
+
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
+  subsets: ['latin'],
   display: 'swap',
-  variable: '--font-panchang',
+  variable: '--font-instrument-serif',
 });
 
 export const metadata: Metadata = {
@@ -63,8 +83,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${panchang.variable}`}>
-      <body className="antialiased bg-white m-0 p-0 overflow-hidden">{children}</body>
+    <html lang="en" className={`${minimalMono.variable} antialiased`}>
+      <body
+        className={`${minimalMono.variable} ${panchang.variable} ${instrumentSerif.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

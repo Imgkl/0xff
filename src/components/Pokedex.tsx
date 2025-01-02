@@ -13,10 +13,28 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    id: '1',
-    title: 'Home',
-    component: <Introduction />
-  }
+    id: "1",
+    title: "Home",
+    component: <Introduction />,
+  },
+  {
+    id: "2",
+    title: "Questions?",
+    component: (
+      <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
+        I'm still cooking.
+      </div>
+    ),
+  },
+  {
+    id: "3",
+    title: "Thoughts?",
+    component: (
+      <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
+        Let me know.
+      </div>
+    ),
+  },
 ];
 
 const Pokedex = () => {
@@ -29,17 +47,17 @@ const Pokedex = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
         className="bg-white rounded-3xl shadow-2xl flex w-full max-w-8xl overflow-hidden border-8 border-primary border-opacity-90"
-        style={{ height: "80vh" }}
+        style={{ height: "85vh" }}
       >
         {/* Left Panel - Menu */}
-        <div className="w-[20%] min-w-[200px] bg-primary bg-opacity-90 border-r border-red">
+        <div className="w-[15%] min-w-[200px] bg-primary bg-opacity-90 border-r border-red">
           <div className="p-6">
-            <h2 className="text-3xl font-bold MinimalMono mb-6 text-textPrimary pl-2">
-              0xff
+            <h2 className="text-3xl font-bold MinimalMono mb-6 text-textPrimary">
+              0xFF
             </h2>
             <nav className="relative">
               <motion.div
-                className="absolute inset-0 bg-textPrimary rounded-xl"
+                className="absolute -inset-3 bg-textPrimary rounded-xl"
                 animate={{
                   top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
                   height: "3rem",
@@ -50,8 +68,8 @@ const Pokedex = () => {
                 }}
                 transition={{
                   type: "spring",
-                  stiffness: 500,
-                  damping: 30,
+                  stiffness: 600,
+                  damping: 20,
                 }}
               />
               <div className="flex flex-col gap-2 relative" style={{ zIndex: 2 }}>
@@ -59,12 +77,12 @@ const Pokedex = () => {
                   <motion.button
                     key={item.id}
                     onClick={() => setSelectedItem(item)}
-                    className={`w-full h-12 flex items-center px-4 rounded-xl ${
+                    className={`w-full h-12 flex items-center ${item.id === selectedItem.id ? "pl-1" : "pl-1"} rounded-3xl ${
                       selectedItem.id === item.id
                         ? "text-white"
-                        : "text-textPrimary hover:text-textPrimary/70"
+                        : "text-textPrimary hover:text-white/80"
                     }`}
-                    whileTap={{ scale: 0.98 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <span className="font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
                       {item.title}

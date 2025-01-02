@@ -16,89 +16,104 @@ const GridBackground = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       
+      // Set actual size in memory (scaled for DPI)
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       
-      ctx.scale(dpr, dpr);
+      // Set display size
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
+      
+      // Scale all drawing operations by the dpr
+      ctx.scale(dpr, dpr);
+      
+      // Reset the canvas dimensions for drawing calculations
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     };
 
     updateSize();
     window.addEventListener('resize', updateSize);
 
     // Grid properties
-    const gridSize = 50;
-    const beams: {
-      x: number;
-      y: number;
-      angle: number;
-      speed: number;
-      width: number;
-    }[] = [];
-    const numBeams = 3;
+    const dotSpacing = 25; // Spacing between dots
+    const dotSize = 1.5; // Size of each dot
+    const mouseRadius = 100; // Reduced radius of mouse influence
+    
+    let time = 0;
+    let mouseX = canvas.width / 2;
+    let mouseY = canvas.height / 2;
+    let targetMouseX = canvas.width / 2;
+    let targetMouseY = canvas.height / 2;
 
-    // Create initial beams
-    for (let i = 0; i < numBeams; i++) {
-      beams.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        angle: Math.random() * Math.PI * 2,
-        speed: 1 + Math.random() * 2,
-        width: 200 + Math.random() * 200,
-      });
-    }
+    // Track mouse movement with smooth transition
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      targetMouseX = e.clientX - rect.left;
+      targetMouseY = e.clientY - rect.top;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
+      time += 0.016;
+
+      // Smooth mouse movement
+      mouseX += (targetMouseX - mouseX) * 0.1;
+      mouseY += (targetMouseY - mouseY) * 0.1;
+      
       // Clear canvas with white background
       ctx.fillStyle = '#fcfcfc';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw grid
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
-      ctx.lineWidth = 1;
+      // Draw dots with enhanced pulsing effect
+      const numDotsX = Math.ceil(canvas.width / dotSpacing);
+      const numDotsY = Math.ceil(canvas.height / dotSpacing);
 
-      // Vertical lines
-      for (let x = 0; x <= canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
+      for (let x = 0; x <= numDotsX; x++) {
+        for (let y = 0; y <= numDotsY; y++) {
+          const dotX = x * dotSpacing;
+          const dotY = y * dotSpacing;
+          
+          const distanceFromMouse = Math.sqrt(
+            Math.pow(dotX - mouseX, 2) +
+            Math.pow(dotY - mouseY, 2)
+          );
+          
+          const distanceFromCenter = Math.sqrt(
+            Math.pow(dotX - canvas.width / 2, 2) +
+            Math.pow(dotY - canvas.height / 2, 2)
+          );
+          
+          // Enhanced mouse influence calculation
+          const mouseInfluence = Math.pow(Math.max(0, 1 - distanceFromMouse / mouseRadius), 1.5);
+          
+          // Calculate dot displacement
+          const angle = Math.atan2(dotY - mouseY, dotX - mouseX);
+          const displacement = mouseInfluence * 8; // Reduced displacement
+          const displacedX = dotX + Math.cos(angle) * displacement;
+          const displacedY = dotY + Math.sin(angle) * displacement;
+          
+          const pulseEffect = (
+            Math.sin(time + distanceFromCenter * 0.01) * 0.1 + 
+            Math.sin(time * 0.5) * 0.05 + 
+            mouseInfluence * 0.8 + 
+            0.8
+          );
+          
+          const currentDotSize = dotSize * (1 + mouseInfluence * 1);
+          const baseOpacity = 0.15 + 
+            Math.sin(time + distanceFromCenter * 0.005) * 0.03;
+          
+          // Increase darkness with mouse influence
+          const mouseOpacity = mouseInfluence * 0.4;
+          const opacity = Math.min(0.8, baseOpacity + mouseOpacity);
+          
+          ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+          ctx.beginPath();
+          ctx.arc(displacedX, displacedY, currentDotSize, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
-
-      // Horizontal lines
-      for (let y = 0; y <= canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-
-      // Update and draw beams
-      beams.forEach(beam => {
-        // Move beam
-        beam.x += Math.cos(beam.angle) * beam.speed;
-        beam.y += Math.sin(beam.angle) * beam.speed;
-
-        // Reset beam position when it goes off screen
-        if (beam.x < -beam.width) beam.x = canvas.width + beam.width;
-        if (beam.x > canvas.width + beam.width) beam.x = -beam.width;
-        if (beam.y < -beam.width) beam.y = canvas.height + beam.width;
-        if (beam.y > canvas.height + beam.width) beam.y = -beam.width;
-
-        // Draw beam
-        const gradient = ctx.createRadialGradient(
-          beam.x, beam.y, 0,
-          beam.x, beam.y, beam.width
-        );
-        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.2)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(beam.x, beam.y, beam.width, 0, Math.PI * 2);
-        ctx.fill();
-      });
 
       requestAnimationFrame(animate);
     };
@@ -107,14 +122,15 @@ const GridBackground = () => {
 
     return () => {
       window.removeEventListener('resize', updateSize);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-screen h-screen pointer-events-none"
-      style={{ backgroundColor: '#fcfcfc' }}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ width: '100vw', height: '100vh' }}
     />
   );
 };

@@ -31,7 +31,7 @@ body {
 
 .MinimalMono {
   font-family: var(--font-minimal-mono), monospace;
-  letter-spacing: -0.15em;
+  letter-spacing: -0.1em;
   font-feature-settings: 'ss01' on, 'ss02' on, 'ss03' on;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,12 +1,8 @@
-"use client";
-
 import GridBackground from "@/components/GridBackground";
 import Pokedex from "@/components/Pokedex";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-background">

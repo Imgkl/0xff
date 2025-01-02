@@ -12,11 +12,13 @@ export default function Home() {
         <motion.div
           key="content"
           className="fixed inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1}}
           transition={{
-            duration: 0.6,
-            ease: [0.76, 0, 0.24, 1],
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 1 },
+            y: { duration: 1.2 }
           }}
         >
           <Pokedex />

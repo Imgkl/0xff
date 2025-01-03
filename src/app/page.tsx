@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-background">
+    <main className="h-screen">
       <GridBackground />
       <AnimatePresence mode="wait">
         <motion.div

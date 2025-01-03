@@ -19,7 +19,7 @@ const menuItems: MenuItem[] = [
   },
   {
     id: "2",
-    title: "Questions?",
+    title: "Installation",
     component: (
       <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
         I&apos;m still cooking.
@@ -41,16 +41,15 @@ const Pokedex = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem>(menuItems[0]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6">
+    <div className="flex items-stretch h-full px-10 py-12">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-3xl shadow-2xl flex w-full max-w-8xl overflow-hidden border-8 border-primary border-opacity-90"
-        style={{ height: "85vh" }}
+        className="bg-white rounded-3xl shadow-2xl flex w-full max-w-8xl overflow-hidden border-2 border-primary border-opacity-90"
       >
         {/* Left Panel - Menu */}
-        <div className="w-[15%] min-w-[200px] bg-primary bg-opacity-90 border-r border-red">
+        <div className="w-[15%] min-w-[200px] bg-primary bg-opacity-90">
           <div className="p-6">
             <h2 className="text-3xl font-bold MinimalMono mb-6 text-textPrimary">
               0xFF
@@ -59,33 +58,36 @@ const Pokedex = () => {
               <LayoutGroup>
                 <motion.div
                   layout
-                  className="absolute -inset-3 bg-textPrimary rounded-xl"
+                  className="absolute -inset-3 bg-textPrimary rounded"
                   initial={{
                     top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
                     height: "3rem",
-                    width: "100%"
+                    width: "calc(100% + 1.5rem)"
                   }}
                   animate={{
                     top: `calc(${parseInt(selectedItem.id) - 1} * (3rem + 0.5rem))`,
                     height: "3rem",
-                    width: "100%"
+                    width: "calc(100% + 1.5rem)"
                   }}
                   style={{
-                    zIndex: 1
+                    zIndex: 1,
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 600,
+                    stiffness: 500,
                     damping: 20,
                   }}
                 />
-                <div className="flex flex-col gap-2 relative" style={{ zIndex: 2 }}>
+                <div
+                  className="flex flex-col gap-2 relative pr-6"
+                  style={{ zIndex: 2 }}
+                >
                   {menuItems.map((item) => (
                     <motion.button
                       layout
                       key={item.id}
                       onClick={() => setSelectedItem(item)}
-                      className={`w-full h-12 flex items-center ${item.id === selectedItem.id ? "pl-1" : "pl-1"} rounded-3xl ${
+                      className={`w-full h-12 flex items-center pl-1 rounded-2xl ${
                         selectedItem.id === item.id
                           ? "text-white"
                           : "text-textPrimary hover:text-white/80"

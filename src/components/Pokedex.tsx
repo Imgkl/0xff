@@ -39,7 +39,6 @@ const menuItems: MenuItem[] = [
 
 const Pokedex = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem>(menuItems[0]);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white">

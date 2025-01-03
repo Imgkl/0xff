@@ -52,10 +52,10 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "0xff.design",
+  title: "0xff [dot] Design",
   description: "⌘ + C and ⌘ + V your next component.",
   openGraph: {
-    title: "0xff.design",
+    title: "0xff [dot] Design",
     description: "⌘ + C and ⌘ + V your next component.",
     url: "https://0xff.design",
     siteName: "0xff.design",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     creator: "@GokulaDotDev",
-    title: "0xff.design",
+    title: "0xff [dot] Design",
     description: "⌘ + C and ⌘ + V your next component.",
     images: "https://i.ibb.co/J2VjQ1W/0xff.png",
   },

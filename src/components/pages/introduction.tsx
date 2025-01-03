@@ -2,8 +2,8 @@ import PerspectiveGrid from '../PerspectiveGrid';
 
 export const Introduction = () => {
   return (
-    <div className="h-full w-full flex items-center justify-center relative overflow-hidden">
-      <div className="max-w-2xl space-y-4">
+    <div className="h-full w-full flex flex-col items-center justify-center relative overflow-hidden">
+      <div className="max-w-2xl space-y-4 z-10">
         <h1 className="text-9xl MinimalMono mb-4 text-textPrimary font-bold">
           0xFF
         </h1>
@@ -21,7 +21,9 @@ export const Introduction = () => {
           coming soon.
         </p>
       </div>
-      <PerspectiveGrid />
+      <div className="absolute inset-x-0 bottom-0 h-[70%]">
+        <PerspectiveGrid />
+      </div>
     </div>
   );
 };

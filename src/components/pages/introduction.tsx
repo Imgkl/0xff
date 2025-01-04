@@ -8,13 +8,21 @@ export const Introduction = () => {
           0xFF
         </h1>
         <p className="text-lg laptop:text-xl font-[family-name:var(--font-geist-sans)] text-textPrimary flex flex-wrap items-center laptop:items-start justify-center laptop:justify-start gap-2">
-          <span className="bg-black text-white px-2 py-1 rounded-lg">⌘</span>
+          <span className="bg-textPrimary text-white px-2 py-1 rounded-lg">
+            ⌘
+          </span>
           <span>+</span>
-          <span className="bg-black text-white px-2.5 py-1 rounded-lg">C</span>
+          <span className="bg-textPrimary text-white px-2.5 py-1 rounded-lg">
+            C
+          </span>
           <span className="mx-2">and</span>
-          <span className="bg-black text-white px-2 py-1 rounded-lg">⌘</span>
+          <span className="bg-textPrimary text-white px-2 py-1 rounded-lg">
+            ⌘
+          </span>
           <span>+</span>
-          <span className="bg-black text-white px-2.5 py-1 rounded-lg">V</span>
+          <span className="bg-textPrimary text-white px-2.5 py-1 rounded-lg">
+            V
+          </span>
           <span className="ml-2">your next</span>
           <span>component.</span>
         </p>

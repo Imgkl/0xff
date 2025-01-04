@@ -27,7 +27,7 @@ export const Introduction = () => {
           <span>component.</span>
         </p>
         <p className="text-lg laptop:text-xl font-[family-name:var(--font-geist-mono)] text-textPrimary text-center laptop:text-left italic pt-3">
-          coming soon.
+          Adding one component per week.
         </p>
       </div>
       <div className="absolute inset-x-0 bottom-0 h-[70%]">

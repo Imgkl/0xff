@@ -55,25 +55,47 @@ export function PokedexMobile({
           transition={{ duration: 0.2 }}
         >
           <div className="max-w-md mx-auto space-y-2 p-2 w-full">
-            {menuItems.map((item) => (
-              <motion.button
-                key={item.id}
-                onClick={() => {
-                  setSelectedItem(item);
-                  setIsOpen(false);
-                }}
-                className={`w-full text-left py-4 px-4 transition-colors rounded ${
-                  selectedItem.id === item.id
-                    ? "bg-[#2C2C2C] text-white"
-                    : "text-textPrimary hover:bg-[#2C2C2C]/10"
-                }`}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="text-lg font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
-                  {item.title}
-                </span>
-              </motion.button>
-            ))}
+            {menuItems.map((item) => {
+              if (item.type === "divider") {
+                return (
+                  <div
+                    key={item.id}
+                    className="h-[1px] bg-textPrimary/20 my-4"
+                  />
+                );
+              }
+
+              if (item.type === "heading") {
+                return (
+                  <div
+                    key={item.id}
+                    className="text-textPrimary/50 text-xs font-bold tracking-widest uppercase mt-4 mb-2"
+                  >
+                    {item.title}
+                  </div>
+                );
+              }
+
+              return (
+                <motion.button
+                  key={item.id}
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full text-left py-4 px-4 transition-colors rounded  ${
+                    selectedItem.id === item.id
+                      ? "bg-[#2C2C2C] text-white"
+                      : "text-textPrimary hover:bg-[#2C2C2C]/10"
+                  }`}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-lg font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
+                    {item.title}
+                  </span>
+                </motion.button>
+              );
+            })}
           </div>
         </motion.div>
 
@@ -87,10 +109,10 @@ export function PokedexMobile({
             className="flex items-center ml-auto"
             onClick={() => setIsOpen(!isOpen)}
             animate={{
-              width: isOpen ? "40px" : "200px",
+              width: isOpen ? "40px" : "auto",
             }}
             transition={{
-              duration: 0.3,
+              duration: 0.2,
               ease: [0.4, 0, 0.2, 1],
             }}
           >
@@ -101,18 +123,33 @@ export function PokedexMobile({
                 borderRadius: "0.25rem",
                 height: "40px",
               }}
+              transition={{
+                duration: 0.2,
+                ease: [0.4, 0, 0.2, 1],
+              }}
             >
               <motion.span
                 animate={{
                   opacity: isOpen ? 0 : 1,
-                  width: isOpen ? 0 : "auto",
                 }}
-                transition={{ duration: 0.2 }}
+                style={{
+                  width: isOpen ? 0 : "auto",
+                  visibility: isOpen ? "hidden" : "visible"
+                }}
+                transition={{ 
+                  duration: 0.2,
+                  ease: [0.4, 0, 0.2, 1],
+                  opacity: { duration: 0.1 }
+                }}
                 className="text-white font-[family-name:var(--font-geist-mono)] text-left tracking-wider overflow-hidden whitespace-nowrap"
               >
                 {selectedItem.title}
               </motion.span>
-              <div className="text-white min-w-[20px] text-center flex items-center justify-center">
+              <div
+                className={`text-white min-w-[20px] text-center flex items-center justify-center ${
+                  isOpen ? "" : "ml-2"
+                } `}
+              >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={isOpen ? "close" : "list"}
@@ -124,7 +161,11 @@ export function PokedexMobile({
                       ease: [0.4, 0, 0.2, 1],
                     }}
                   >
-                    {isOpen ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+                    {isOpen ? (
+                      <X size={20} weight="bold" />
+                    ) : (
+                      <List size={20} weight="bold" />
+                    )}
                   </motion.div>
                 </AnimatePresence>
               </div>

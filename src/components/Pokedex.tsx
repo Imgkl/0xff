@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Introduction } from "./introduction";
 import { CopySnippetPage } from "./pages/CopySnippetPage";
-import { Introduction } from "./pages/introduction";
 import { PokedexDesktop } from "./Pokedex-desktop";
 import { PokedexMobile } from "./Pokedex-mobile";
 

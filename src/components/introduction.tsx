@@ -1,4 +1,4 @@
-import PerspectiveGrid from '../PerspectiveGrid';
+import PerspectiveGrid from './PerspectiveGrid';
 
 export const Introduction = () => {
   return (

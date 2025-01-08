@@ -1,8 +1,8 @@
 import { getComponentSource } from "@/utils/getComponentSource";
 import { useEffect, useState } from 'react';
-import { CodeBlockDisplay } from "../library/CodeBlock";
+import { CodeBlockDisplay } from "../CodeBlock";
 import { CopySnippet } from "../library/CopySnippet";
-import { LivePreview } from "../library/LivePreview";
+import { LivePreview } from "../LivePreview";
 
 export const CopySnippetPage = () => {
     const [componentSource, setComponentSource] = useState('');

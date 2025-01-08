@@ -27,18 +27,6 @@ const minimalMono = localFont({
   preload: true,
 });
 
-const panchang = localFont({
-  src: [
-    {
-      path: "./fonts/Panchang.ttf",
-      weight: "400",
-      style: "regular",
-    },
-  ],
-  display: "swap",
-  variable: "--font-panchang",
-});
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -52,30 +40,30 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "0xff [dot] Design",
+  title: "0xFF [dot] Design",
   description: "⌘ + C and ⌘ + V your next component.",
   openGraph: {
-    title: "0xff [dot] Design",
+    title: "0xFF [dot] Design",
     description: "⌘ + C and ⌘ + V your next component.",
     url: "https://0xff.design",
-    siteName: "0xff.design",
+    siteName: "0xFF.design",
     locale: "en-US",
     type: "website",
     images: [
       {
-        url: "https://i.ibb.co/J2VjQ1W/0xff.png",
+        url: "https://i.ibb.co/7tCfFx4/0xff.png",
         width: 1263,
         height: 675,
-        alt: "0xff.design",
+        alt: "0xFF.design",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     creator: "@GokulaDotDev",
-    title: "0xff [dot] Design",
+    title: "0xFF [dot] Design",
     description: "⌘ + C and ⌘ + V your next component.",
-    images: "https://i.ibb.co/J2VjQ1W/0xff.png",
+    images: "https://i.ibb.co/7tCfFx4/0xff.png",
   },
   robots: {
     index: true,
@@ -101,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${minimalMono.variable} antialiased`}>
       <body
-        className={`${minimalMono.variable} ${panchang.variable} ${geistMono.variable} ${geistSans.variable}`}
+        className={`${minimalMono.variable} ${geistMono.variable} ${geistSans.variable}`}
       >
         {children}
       </body>

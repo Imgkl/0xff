@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CopySnippetPage } from "./pages/CopySnippetPage";
 import { Introduction } from "./pages/introduction";
 import { PokedexDesktop } from "./Pokedex-desktop";
 import { PokedexMobile } from "./Pokedex-mobile";
@@ -14,11 +15,6 @@ export interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    id: "section-1",
-    title: "GETTING STARTED",
-    type: "heading",
-  },
-  {
     id: "1",
     title: "Home",
     component: <Introduction />,
@@ -30,59 +26,61 @@ const menuItems: MenuItem[] = [
     type: "divider",
   },
   {
-    id: "section-2",
-    title: "Component Library",
+    id: "section-1",
+    title: "Library",
     type: "heading",
   },
   {
     id: "2",
-    title: "Install command",
-    component: (
-      <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
-        Let me know.
-      </div>
-    ),
+    title: "Copy Snippet",
+    component: <CopySnippetPage />,
     type: "item",
-  },
-  {
-    id: "divider-2",
-    title: "",
-    type: "divider",
-  },
-  {
-    id: "section-3",
-    title: "FEEDBACK",
-    type: "heading",
-  },
-  {
-    id: "3",
-    title: "Thoughts?",
-    component: (
-      <div className="text-5xl text-textPrimary center flex items-center justify-center h-full w-full relative">
-        Let me know.
-      </div>
-    ),
-    type: "item",
-  },
+  }
 ];
 
 const Pokedex = () => {
-  const [selectedItem, setSelectedItem] = useState<MenuItem>(menuItems[1]);
+  const [activeComponent, setActiveComponent] = useState("1");
+
+  const handleComponentChange = (id: string) => {
+    setActiveComponent(id);
+    const item = menuItems.find(c => c.id === id);
+    if (item?.title) {
+      window.location.hash = item.title.toLowerCase().replace(/\s+/g, '-');
+    }
+  };
+
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) {
+      const homeItem = menuItems.find(item => item.title === "Home");
+      if (homeItem) {
+        setActiveComponent(homeItem.id);
+      }
+      return;
+    }
+    
+    const matchingItem = menuItems.find(
+      item => item.title?.toLowerCase().replace(/\s+/g, '-') === hash
+    );
+    if (matchingItem) {
+      setActiveComponent(matchingItem.id);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
       <div className="laptop:hidden">
         <PokedexMobile
-          selectedItem={selectedItem}
           menuItems={menuItems}
-          setSelectedItem={setSelectedItem}
+          activeComponent={activeComponent}
+          onComponentChange={handleComponentChange}
         />
       </div>
       <div className="hidden laptop:block">
         <PokedexDesktop
-          selectedItem={selectedItem}
           menuItems={menuItems}
-          setSelectedItem={setSelectedItem}
+          activeComponent={activeComponent}
+          onComponentChange={handleComponentChange}
         />
       </div>
     </div>

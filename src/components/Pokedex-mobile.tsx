@@ -5,31 +5,35 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { MenuItem } from "./Pokedex";
 
-interface PokedexMobileProps {
-  selectedItem: MenuItem;
+interface Props {
   menuItems: MenuItem[];
-  setSelectedItem: (item: MenuItem) => void;
+  activeComponent: string;
+  onComponentChange: (id: string) => void;
 }
 
-export function PokedexMobile({
-  selectedItem,
+export const PokedexMobile = ({
   menuItems,
-  setSelectedItem,
-}: PokedexMobileProps) {
+  activeComponent,
+  onComponentChange,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col h-screen">
       {/* Content Area */}
-      <div className="flex-1 overflow-auto">
+      <div
+        className={`flex-1 overflow-auto ${
+          activeComponent === "1" ? "" : "px-4"
+        }`}
+      >
         <motion.div
-          key={selectedItem.id}
+          key={activeComponent}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
           className="h-screen"
         >
-          {selectedItem.component}
+          {menuItems.find((item) => item.id === activeComponent)?.component}
         </motion.div>
       </div>
 
@@ -77,23 +81,22 @@ export function PokedexMobile({
               }
 
               return (
-                <motion.button
+                <button
                   key={item.id}
                   onClick={() => {
-                    setSelectedItem(item);
+                    onComponentChange(item.id);
                     setIsOpen(false);
                   }}
                   className={`w-full text-left py-4 px-4 transition-colors rounded  ${
-                    selectedItem.id === item.id
+                    activeComponent === item.id
                       ? "bg-[#2C2C2C] text-white"
                       : "text-textPrimary hover:bg-[#2C2C2C]/10"
                   }`}
-                  whileTap={{ scale: 0.98 }}
                 >
                   <span className="text-lg font-[family-name:var(--font-geist-mono)] w-full text-left tracking-wider">
                     {item.title}
                   </span>
-                </motion.button>
+                </button>
               );
             })}
           </div>
@@ -134,16 +137,16 @@ export function PokedexMobile({
                 }}
                 style={{
                   width: isOpen ? 0 : "auto",
-                  visibility: isOpen ? "hidden" : "visible"
+                  visibility: isOpen ? "hidden" : "visible",
                 }}
-                transition={{ 
+                transition={{
                   duration: 0.2,
                   ease: [0.4, 0, 0.2, 1],
-                  opacity: { duration: 0.1 }
+                  opacity: { duration: 0.1 },
                 }}
                 className="text-white font-[family-name:var(--font-geist-mono)] text-left tracking-wider overflow-hidden whitespace-nowrap"
               >
-                {selectedItem.title}
+                {menuItems.find((item) => item.id === activeComponent)?.title}
               </motion.span>
               <div
                 className={`text-white min-w-[20px] text-center flex items-center justify-center ${

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-const GITHUB_API_BASE = "https://api.github.com/repos";
 const GITHUB_RAW_BASE = "https://raw.githubusercontent.com";
 const REPO_OWNER = "Imgkl";
 const REPO_NAME = "0xff";

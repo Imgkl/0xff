@@ -13,7 +13,7 @@ export const CopySnippetPage = () => {
     };
 
     useEffect(() => {
-      getComponentSource('/src/components/library/CopySnippet.tsx')
+      getComponentSource('src/components/library/CopySnippet.tsx')
         .then(setComponentSource)
         .catch(console.error);
     }, []);
